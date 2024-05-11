@@ -18,7 +18,7 @@ export const accountSchema = z
 export const addressSchema = z.object({
   address1: z.string(),
   address2: z.string().optional(),
-  country: z.enum(["US"]),
+  country: z.enum(["US","UK","BS","HK"]),
   city: z.string(),
   zipCode: z.string().regex(/(^\d{5}$)|(^\d{5}-\d{4}$)/),
   company: z.string().optional(),
