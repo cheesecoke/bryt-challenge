@@ -118,7 +118,7 @@ export default function StepForm() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">{headers[currentStepIndex]}</h1>
+      <h1 className="text-4xl font-bold mb-8">{headers[currentStepIndex]}</h1>
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg mx-auto p-8 bg-white rounded-md shadow-md"
@@ -126,19 +126,19 @@ export default function StepForm() {
         <ProgressBar currentStep={currentStepIndex} />
         {step}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        <div className="flex justify-between mt-8">
+        <div className={`flex mt-8 ${!isFirstStep ? 'justify-between' : 'justify-end'}`}>
           {!isFirstStep && (
             <button
               type="button"
               onClick={back}
-              className="bg-gray-200 px-4 py-2 rounded"
+              className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded transition duration-300 ease-in-out"
             >
               Back
             </button>
           )}
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded transition duration-300 ease-in-out"
           >
             {isLastStep ? "Register!" : "Next Step"}
           </button>

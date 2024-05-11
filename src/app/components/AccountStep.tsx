@@ -7,21 +7,27 @@ export default function AccountStep({
 }) {
   return (
     <div className="flex flex-col">
-      <label>First Name</label>
-      <input
-        type="text"
-        value={data.firstName}
-        onChange={(e) => updateFields({ firstName: e.target.value })}
-        className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
-      />
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        <div>
+          <label>First Name</label>
+          <input
+            type="text"
+            value={data.firstName}
+            onChange={(e) => updateFields({ firstName: e.target.value })}
+            className="p-2 mt-2 border border-gray-300 rounded-lg w-full"
+          />
+        </div>
 
-      <label>Last Name</label>
-      <input
-        type="text"
-        value={data.lastName}
-        onChange={(e) => updateFields({ lastName: e.target.value })}
-        className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
-      />
+        <div>
+          <label>Last Name</label>
+          <input
+            type="text"
+            value={data.lastName}
+            onChange={(e) => updateFields({ lastName: e.target.value })}
+            className="p-2 mt-2 border border-gray-300 rounded-lg w-full"
+          />
+        </div>
+      </div>
 
       <label>Username *</label>
       <input
@@ -39,21 +45,27 @@ export default function AccountStep({
         className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
       />
 
-      <label>Password *</label>
-      <input
-        type="password"
-        value={data.password}
-        onChange={(e) => updateFields({ password: e.target.value })}
-        className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
-      />
+      <div className="grid grid-cols-2 gap-4 mb-4 mt-6">
+        <div>
+          <label>Password *</label>
+          <input
+            type="password"
+            value={data.password}
+            onChange={(e) => updateFields({ password: e.target.value })}
+            className="p-2 mt-2 border border-gray-300 rounded-lg w-full"
+          />
+        </div>
 
-      <label>Confirm Password *</label>
-      <input
-        type="password"
-        value={data.confirmPassword}
-        onChange={(e) => updateFields({ confirmPassword: e.target.value })}
-        className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
-      />
+        <div>
+          <label>Confirm Password *</label>
+          <input
+            type="password"
+            value={data.confirmPassword}
+            onChange={(e) => updateFields({ confirmPassword: e.target.value })}
+            className="p-2 mt-2 border border-gray-300 rounded-lg w-full"
+          />
+        </div>
+      </div>
     </div>
   );
 }
