@@ -1,4 +1,4 @@
-export default function AccountStep({ data, updateFields }) {
+export default function AccountStep({ data, updateFields }: { data: any, updateFields: any }) {
     return (
         <div className="flex flex-col">
             <label>First Name</label>

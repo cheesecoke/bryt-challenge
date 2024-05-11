@@ -1,4 +1,4 @@
-export default function PreferencesStep({ data, updateFields }) {
+export default function PreferencesStep({ data, updateFields }: { data: any, updateFields: any }) {
   return (
     <div className="flex flex-col">
       <label>

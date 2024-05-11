@@ -1,4 +1,4 @@
-export default function AddressStep({ data, updateFields }) {
+export default function AddressStep({ data, updateFields }: { data: any, updateFields: any }) {
     return (
       <div className="flex flex-col">
         <label>Address *</label>
