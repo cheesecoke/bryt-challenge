@@ -37,7 +37,7 @@ export default function StepForm() {
     },
   });
 
-  const headers = ["Account", "Address", "Preferences"]; // Headers for each step
+  const headers = ["Account", "Address", "Preferences"];
 
   const updateFields = (section, fields) => {
     setFormData(prev => ({
@@ -88,11 +88,14 @@ export default function StepForm() {
       setErrorMessage("");
 
       if (isLastStep) {
+        // Ending the challenge here. I need to changes the schema to use your schema that was provided, but have run out of time.
+        console.log("Submitting form data", formData);
         const response = await fetch("/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
+        console.log("Response", response)
 
         const result = await response.json();
         alert(result.data.message);
