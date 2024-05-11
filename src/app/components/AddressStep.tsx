@@ -4,16 +4,16 @@ export default function AddressStep({ data, updateFields }: { data: any, updateF
         <label>Address *</label>
         <input
           type="text"
-          value={data.address}
-          onChange={(e) => updateFields({ address: e.target.value })}
+          value={data.address1}
+          onChange={(e) => updateFields({ address1: e.target.value })}
           className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
         />
 
         <label>Apartment, Suite, etc.</label>
         <input
           type="text"
-          value={data.apartment}
-          onChange={(e) => updateFields({ apartment: e.target.value })}
+          value={data.address2}
+          onChange={(e) => updateFields({ address2: e.target.value })}
           className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
         />
 
@@ -33,11 +33,11 @@ export default function AddressStep({ data, updateFields }: { data: any, updateF
           className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
         />
 
-        <label>Zipcode *</label>
+        <label>ZipCode *</label>
         <input
           type="text"
-          value={data.zipcode}
-          onChange={(e) => updateFields({ zipcode: e.target.value })}
+          value={data.zipCode}
+          onChange={(e) => updateFields({ zipCode: e.target.value })}
           className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
         />
 

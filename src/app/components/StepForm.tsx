@@ -22,17 +22,17 @@ export default function StepForm() {
       confirmPassword: "",
     },
     address: {
-      address: "",
-      apartment: "",
+      address1: "",
+      address2: "",
       country: "",
       city: "",
-      zipcode: "",
+      zipCode: "",
       company: "",
       phoneNumber: "",
     },
     preferences: {
-      sendNotifications: false,
-      shareMarketingInfo: false,
+      wantsNotifications: 'No',
+      shareInformation: 'No',
       notificationPreference: "Email",
     },
   });
@@ -80,15 +80,23 @@ export default function StepForm() {
       if (currentStepIndex === 0) {
         accountSchema.parse(formData.account);
       } else if (currentStepIndex === 1) {
-        addressSchema.parse(formData.address);
+        // Probably a better way to handle Country input
+        const processedData = {
+          ...formData,
+          address: {
+            ...formData.address,
+          country: formData.address.country === "United States" ? "US" : formData.address.country
+          }
+        };
+        addressSchema.parse(processedData.address);
       } else {
+        console.log("Preferences", formData.preferences);
         preferencesSchema.parse(formData.preferences);
       }
 
       setErrorMessage("");
 
       if (isLastStep) {
-        // Ending the challenge here. I need to changes the schema to use your schema that was provided, but have run out of time.
         console.log("Submitting form data", formData);
         const response = await fetch("/api/register", {
           method: "POST",

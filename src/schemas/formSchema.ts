@@ -1,31 +1,35 @@
 import { z } from 'zod';
+import { zfd } from "zod-form-data";
 
+const passwordRegex = /^[\w&.\-]*$/;
+// Json schema
 export const accountSchema = z.object({
-  firstName: z.string().min(1, 'First Name is required'),
-  lastName: z.string().min(1, 'Last Name is required'),
-  username: z.string().min(1, 'Username is required'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
-  confirmPassword: z.string().min(6, 'Please confirm your password'),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Passwords do not match',
-  path: ['confirmPassword'],
+  firstName: z.string().optional(),
+    lastName: z.string().optional(),
+    email: z.string().email(),
+    username: z.string(),
+    password: z.string().min(10).regex(passwordRegex),
+    confirmPassword: z.string().regex(passwordRegex),
+}).refine((data) => {
+  return data.password === data.confirmPassword;
 });
 
 export const addressSchema = z.object({
-  address: z.string().min(1, 'Address is required'),
-  apartment: z.string().optional(),
-  country: z.string().min(1, 'Country is required'),
-  city: z.string().min(1, 'City is required'),
-  zipcode: z.string().min(1, 'Zipcode is required'),
-  company: z.string().optional(),
-  phoneNumber: z.string().min(1, 'Phone Number is required'),
+  address1: z.string(),
+    address2: z.string().optional(),
+    country: z.enum(["US"]),
+    city: z.string(),
+    zipCode: z.string().regex(/(^\d{5}$)|(^\d{5}-\d{4}$)/),
+    company: z.string().optional(),
+    phoneNumber: z
+      .string()
+      .regex(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]{8,14}$/g),
 });
 
 export const preferencesSchema = z.object({
-  sendNotifications: z.boolean(),
-  shareMarketingInfo: z.boolean(),
-  notificationPreference: z.enum(['Email', 'Text']),
+  wantsNotifications: z.enum(["Yes", "No"]).default("No"),
+    shareInformation: z.enum(["Yes", "No"]).default("No"),
+    notificationPreferences: z.enum(["Email", "Text"]).optional(),
 });
 
 export const formSchema = z.object({

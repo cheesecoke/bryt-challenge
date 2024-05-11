@@ -1,12 +1,16 @@
 export default function PreferencesStep({ data, updateFields }: { data: any, updateFields: any }) {
+  const handleCheckboxChange = (field: string, checked: boolean) => {
+    updateFields({ [field]: checked ? "Yes" : "No" });
+  };
+
   return (
     <div className="flex flex-col">
       <label>
         <input
           type="checkbox"
-          checked={data.sendNotifications}
+          checked={data.wantsNotifications === "Yes"}
           onChange={(e) =>
-            updateFields({ sendNotifications: e.target.checked })
+            handleCheckboxChange("wantsNotifications", e.target.checked)
           }
           className="mb-5"
         />
@@ -16,9 +20,9 @@ export default function PreferencesStep({ data, updateFields }: { data: any, upd
       <label>
         <input
           type="checkbox"
-          checked={data.shareMarketingInfo}
+          checked={data.shareInformation === "Yes"}
           onChange={(e) =>
-            updateFields({ shareMarketingInfo: e.target.checked })
+            handleCheckboxChange("shareInformation", e.target.checked)
           }
           className="mb-5"
         />
