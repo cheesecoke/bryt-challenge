@@ -1,3 +1,5 @@
+*Branch overtime/fix-schema is work that was done after the challenge.*
+
 # Bryt Designs Front-end Tech Challenge
 
 ### React Multi-step Forms
