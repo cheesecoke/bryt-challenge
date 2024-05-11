@@ -118,7 +118,7 @@ export default function StepForm() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">{headers[currentStepIndex]}</h1>{" "}
+      <h1 className="text-2xl font-bold mb-4">{headers[currentStepIndex]}</h1>
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg mx-auto p-8 bg-white rounded-md shadow-md"
