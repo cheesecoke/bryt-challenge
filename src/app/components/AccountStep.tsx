@@ -45,7 +45,7 @@ export default function AccountStep({
         className="p-2 mt-2 mb-4 border border-gray-300 hover:border-gray-500 rounded-lg"
       />
 
-      <div className="grid grid-cols-2 gap-4 mb-4 mt-6">
+      <div className="grid grid-cols-2 gap-4 mb-4 mt-8">
         <div>
           <label>Password *</label>
           <input

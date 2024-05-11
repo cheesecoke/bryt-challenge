@@ -41,7 +41,7 @@ export default function PreferencesStep({
         onChange={(e) =>
           updateFields({ notificationPreference: e.target.value })
         }
-        className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
+        className="p-2 mt-2 mb-4 border border-gray-300 hover:border-gray-500 rounded-lg"
       >
         <option value="" disabled selected={!data.notificationPreference}>
           Dropdown: Email or Text
