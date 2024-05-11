@@ -8,7 +8,7 @@ import {
   accountSchema,
   addressSchema,
   preferencesSchema,
-} from "../../schemas/formSchema";
+} from "../api/register/formSchema";
 import { useMultiStepForm } from "../hooks/useMultiStepForm";
 
 export default function StepForm() {
@@ -31,40 +31,38 @@ export default function StepForm() {
       phoneNumber: "",
     },
     preferences: {
-      wantsNotifications: 'No',
-      shareInformation: 'No',
+      wantsNotifications: "No",
+      shareInformation: "No",
       notificationPreference: "Email",
     },
   });
-
   const headers = ["Account", "Address", "Preferences"];
 
   const updateFields = (section, fields) => {
-    setFormData(prev => ({
-        ...prev,
-        [section]: {
-            ...prev[section],
-            ...fields
-        }
+    setFormData((prev) => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        ...fields,
+      },
     }));
-};
-
+  };
 
   const steps = [
     <AccountStep
       key={1}
       data={formData.account}
-      updateFields={(fields) => updateFields("account", fields )}
+      updateFields={(fields) => updateFields("account", fields)}
     />,
     <AddressStep
       key={2}
       data={formData.address}
-      updateFields={(fields) => updateFields( "address", fields )}
+      updateFields={(fields) => updateFields("address", fields)}
     />,
     <PreferencesStep
       key={3}
       data={formData.preferences}
-      updateFields={(fields) => updateFields("preferences", fields )}
+      updateFields={(fields) => updateFields("preferences", fields)}
     />,
   ];
 
@@ -80,30 +78,30 @@ export default function StepForm() {
       if (currentStepIndex === 0) {
         accountSchema.parse(formData.account);
       } else if (currentStepIndex === 1) {
-        // Probably a better way to handle Country input
-        const processedData = {
-          ...formData,
-          address: {
-            ...formData.address,
-          country: formData.address.country === "United States" ? "US" : formData.address.country
-          }
-        };
-        addressSchema.parse(processedData.address);
+        if (formData.address.country === "United States") {
+          formData.address.country = "US";
+        }
+        addressSchema.parse(formData.address);
       } else {
-        console.log("Preferences", formData.preferences);
         preferencesSchema.parse(formData.preferences);
       }
 
       setErrorMessage("");
 
       if (isLastStep) {
-        console.log("Submitting form data", formData);
+        const flattenFormData = (formData) => {
+          return {
+            ...formData.account,
+            ...formData.address,
+            ...formData.preferences,
+          };
+        };
+
         const response = await fetch("/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(flattenFormData(formData)),
         });
-        console.log("Response", response)
 
         const result = await response.json();
         alert(result.data.message);

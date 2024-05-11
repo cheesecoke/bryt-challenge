@@ -1,4 +1,10 @@
-export default function PreferencesStep({ data, updateFields }: { data: any, updateFields: any }) {
+export default function PreferencesStep({
+  data,
+  updateFields,
+}: {
+  data: any;
+  updateFields: any;
+}) {
   const handleCheckboxChange = (field: string, checked: boolean) => {
     updateFields({ [field]: checked ? "Yes" : "No" });
   };
@@ -13,8 +19,8 @@ export default function PreferencesStep({ data, updateFields }: { data: any, upd
             handleCheckboxChange("wantsNotifications", e.target.checked)
           }
           className="mb-5"
-        />
-        {" "}Send notifications
+        />{" "}
+        Send notifications
       </label>
 
       <label>
@@ -25,8 +31,8 @@ export default function PreferencesStep({ data, updateFields }: { data: any, upd
             handleCheckboxChange("shareInformation", e.target.checked)
           }
           className="mb-5"
-        />
-        {" "}Share information with related marketers
+        />{" "}
+        Share information with related marketers
       </label>
 
       <label className="text-sm mt-10">Notification Preferences</label>
@@ -38,7 +44,7 @@ export default function PreferencesStep({ data, updateFields }: { data: any, upd
         className="p-2 mt-2 mb-4 border border-gray-300 rounded-lg"
       >
         <option value="" disabled selected={!data.notificationPreference}>
-         Dropdown: Email or Text 
+          Dropdown: Email or Text
         </option>
 
         <option value="Email">Email</option>
