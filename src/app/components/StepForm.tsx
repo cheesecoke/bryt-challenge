@@ -39,6 +39,7 @@ export default function StepForm() {
   const headers = ["Account", "Address", "Preferences"];
 
   const updateFields = (section, fields) => {
+    console.log("fields", fields);
     setFormData((prev) => ({
       ...prev,
       [section]: {
@@ -78,9 +79,7 @@ export default function StepForm() {
       if (currentStepIndex === 0) {
         accountSchema.parse(formData.account);
       } else if (currentStepIndex === 1) {
-        if (formData.address.country === "United States") {
-          formData.address.country = "US";
-        }
+        console.log("formData.address", formData.address);
         addressSchema.parse(formData.address);
       } else {
         preferencesSchema.parse(formData.preferences);
@@ -126,7 +125,11 @@ export default function StepForm() {
         <ProgressBar currentStep={currentStepIndex} />
         {step}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-        <div className={`flex mt-8 ${!isFirstStep ? 'justify-between' : 'justify-end'}`}>
+        <div
+          className={`flex mt-8 ${
+            !isFirstStep ? "justify-between" : "justify-end"
+          }`}
+        >
           {!isFirstStep && (
             <button
               type="button"

@@ -30,17 +30,7 @@ export default function AddressStep({
       </div>
 
       <div className="grid grid-cols-5 gap-4 mb-10">
-        <div className="col-span-2">
-          <label>Country *</label>
-          <input
-            type="text"
-            value={data.country}
-            onChange={(e) => updateFields({ country: e.target.value })}
-            className="p-2 border border-gray-300 hover:border-gray-500 rounded-lg w-full"
-          />
-        </div>
-
-        <div className="col-span-2">
+        <div className="col-span-3">
           <label>City *</label>
           <input
             type="text"
@@ -58,6 +48,23 @@ export default function AddressStep({
             onChange={(e) => updateFields({ zipCode: e.target.value })}
             className="p-2 border border-gray-300 hover:border-gray-500 rounded-lg w-full"
           />
+        </div>
+
+        <div className="col-span-1">
+          <label>Country *</label>
+          <select
+            value={data.country}
+            onChange={(e) => updateFields({ country: e.target.value })}
+            className="p-2 border border-gray-300 hover:border-gray-500 rounded-lg w-full"
+          >
+            <option value="" disabled selected={!data.country}>
+              Dropdown: Select Country
+            </option>
+            <option value="US">US</option>
+            <option value="UK">UK</option>
+            <option value="BS">BS</option>
+            <option value="HK">HK</option>
+          </select>
         </div>
       </div>
 
