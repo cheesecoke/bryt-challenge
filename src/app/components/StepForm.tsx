@@ -11,6 +11,12 @@ import {
 } from "../api/register/formSchema";
 import { useMultiStepForm } from "../hooks/useMultiStepForm";
 
+const ENTER_FROM_LEFT = "-translate-x-full opacity-0";
+const LEAVE_TO_RIGHT = "translate-x-full opacity-0";
+const ENTER_FROM_RIGHT = "translate-x-full opacity-0";
+const LEAVE_TO_LEFT = "-translate-x-full opacity-0";
+
+
 export default function StepForm() {
   const [formData, setFormData] = useState({
     account: {
@@ -36,7 +42,23 @@ export default function StepForm() {
       notificationPreference: "Email",
     },
   });
+  const [transitioning, setTransitioning] = useState(false);
+  const [transitionClass, setTransitionClass] = useState(ENTER_FROM_LEFT);
   const headers = ["Account", "Address", "Preferences"];
+
+  const handleTransitionUpdate = (updateFunc, direction) => {
+    if (!transitioning || !isLastStep) {
+      setTransitioning(true);
+      setTransitionClass(direction === 'next' ? LEAVE_TO_LEFT : LEAVE_TO_RIGHT);
+      setTimeout(() => {
+        updateFunc();
+        setTransitionClass(direction === 'next' ? ENTER_FROM_RIGHT : ENTER_FROM_LEFT);
+        setTimeout(() => {
+          setTransitioning(false);
+        }, 300);
+      }, 300);
+    }
+  };
 
   const updateFields = (section, fields) => {
     console.log("fields", fields);
@@ -67,8 +89,14 @@ export default function StepForm() {
     />,
   ];
 
-  const { currentStepIndex, step, next, back, isFirstStep, isLastStep } =
-    useMultiStepForm(steps);
+  const {
+    currentStepIndex,
+    step,
+    next,
+    back,
+    isFirstStep,
+    isLastStep,
+  } = useMultiStepForm(steps, handleTransitionUpdate);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -116,7 +144,7 @@ export default function StepForm() {
   };
 
   return (
-    <>
+    <div className={`transform transition duration-300 ease-in-out ${transitioning ? transitionClass : 'translate-x-0 opacity-100'}`}>
       <h1 className="text-4xl font-bold mb-8">{headers[currentStepIndex]}</h1>
       <form
         onSubmit={handleSubmit}
@@ -134,6 +162,7 @@ export default function StepForm() {
             <button
               type="button"
               onClick={back}
+              disabled={isFirstStep || transitioning}
               className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded transition duration-300 ease-in-out"
             >
               Back
@@ -147,6 +176,6 @@ export default function StepForm() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
