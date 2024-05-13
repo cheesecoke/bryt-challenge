@@ -7,12 +7,17 @@ export const accountSchema = z
     firstName: z.string().optional(),
     lastName: z.string().optional(),
     email: z.string().email(),
-    username: z.string(),
+    username: z.string().min(1, "").refine((username) => username.length, {
+     message: "Username is required",
+    }),
     password: z.string().min(10).regex(passwordRegex),
     confirmPassword: z.string().regex(passwordRegex),
   })
   .refine((data) => {
     return data.password === data.confirmPassword;
+  }, {
+    message: "Your passwords do not match. Please try again.",
+    path: ["confirmPassword"],
   });
 
 export const addressSchema = z.object({

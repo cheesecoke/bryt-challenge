@@ -1,9 +1,10 @@
 import {
     formDataSchema,
-  formJsonSchema,
+  // formJsonSchema,
   type RegisterFormData,
   type RegisterFormJson,
 } from "./schemas";
+import { formSchema } from './formSchema'
 type Data = RegisterFormData | RegisterFormJson;
 
 
@@ -18,7 +19,7 @@ export function withZod(handler: PostHandler) {
     console.log("Content-Type", contentType);
     if (contentType?.includes("application/json")) {
       const data = await request.json();
-      const result = await formJsonSchema.safeParseAsync(data);
+      const result = await formSchema.safeParseAsync(data);
       if (result.success) return handler(request, result.data);
       return new Response(JSON.stringify({ error: result.error.flatten() }), {
         status: 400,
